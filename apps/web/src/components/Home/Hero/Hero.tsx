@@ -24,16 +24,16 @@ export function Hero() {
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link
-              href="/workspace"
+              href="/login"
               className="rounded-full bg-white px-6 py-3 text-center text-sm font-semibold text-slate-950 transition hover:bg-slate-100"
             >
-              Sign Up
+              Get Started
             </Link>
             <Link
-              href="/workspace"
+              href="/login"
               className="rounded-full border border-white/20 bg-white/10 px-6 py-3 text-center text-sm font-semibold text-white transition hover:bg-white/15"
             >
-              Log In
+              Learn More
             </Link>
           </div>
 

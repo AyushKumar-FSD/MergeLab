@@ -10,8 +10,15 @@ export type StoredUser = {
   qualification: string;
 };
 
+export type GuestSession = {
+  id: string;
+  createdAt: number;
+  sessionId: string;
+};
+
 const USERS_KEY = "mergelab-users";
 const CURRENT_USER_KEY = "mergelab-current-user";
+const GUEST_SESSION_KEY = "mergelab-guest-session";
 
 export const skillOptions = [
   "Design",
@@ -149,4 +156,56 @@ export function updateCurrentUser(
   setCurrentEmail(nextUser.email);
 
   return nextUser;
+}
+
+// Guest session functions
+export function createGuestSession(): GuestSession {
+  if (!isBrowser()) {
+    return { id: "", createdAt: 0, sessionId: "" };
+  }
+
+  const guestSession: GuestSession = {
+    id: `guest-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+    createdAt: Date.now(),
+    sessionId: `session-${Math.random().toString(36).substr(2, 9)}`,
+  };
+
+  window.localStorage.setItem(GUEST_SESSION_KEY, JSON.stringify(guestSession));
+  window.localStorage.setItem(CURRENT_USER_KEY, `guest-${guestSession.sessionId}`);
+
+  return guestSession;
+}
+
+export function getGuestSession(): GuestSession | null {
+  if (!isBrowser()) {
+    return null;
+  }
+
+  try {
+    const raw = window.localStorage.getItem(GUEST_SESSION_KEY);
+    if (!raw) {
+      return null;
+    }
+    return JSON.parse(raw) as GuestSession;
+  } catch {
+    return null;
+  }
+}
+
+export function isGuestUser(): boolean {
+  if (!isBrowser()) {
+    return false;
+  }
+
+  const currentEmail = window.localStorage.getItem(CURRENT_USER_KEY);
+  return currentEmail?.startsWith("guest-") ?? false;
+}
+
+export function clearGuestSession(): void {
+  if (!isBrowser()) {
+    return;
+  }
+
+  window.localStorage.removeItem(GUEST_SESSION_KEY);
+  window.localStorage.removeItem(CURRENT_USER_KEY);
 }
