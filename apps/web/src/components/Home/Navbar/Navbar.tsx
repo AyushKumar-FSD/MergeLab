@@ -16,13 +16,13 @@ export function Navbar() {
 
         <nav className="flex items-center gap-3">
           <Link
-            href="/workspace"
+            href="/login"
             className="rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-slate-200 transition hover:border-purple-400/60 hover:text-white"
           >
             Log In
           </Link>
           <Link
-            href="/workspace"
+            href="/signup"
             className="rounded-full bg-gradient-to-r from-[#8b5cf6] to-[#a855f7] px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-purple-500/25 transition hover:brightness-110"
           >
             Sign Up
