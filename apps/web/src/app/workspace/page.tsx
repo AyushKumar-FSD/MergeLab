@@ -1,5 +1,11 @@
-import { WorkspaceShell } from "@/components/Workspace/WorkspaceShell";
+import React from 'react'
 
-export default function Workspace() {
-  return <WorkspaceShell />;
+const page = () => {
+  return (
+    <div>
+      HI
+    </div>
+  )
 }
+
+export default page
